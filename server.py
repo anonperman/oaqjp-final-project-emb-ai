@@ -1,19 +1,20 @@
+""" module runnung flask server for sentiment analysis """
+
+import json
 from flask import Flask, render_template
 from flask import request
-from flask import Response
-from flask import redirect
-import json
-
 from EmotionDetection import emotion_detection
 
 app = Flask("Emotions detector")
 
 @app.route("/")
-def displayInputPage():
+def display_input_iage():
+    """show index html."""
     return render_template("index.html")
 
 @app.route("/emotionDetector")
-def getEmotion():
+def get_emotion():
+    """get emotion analysis from nlp server"""
     emotion_str = emotion_detection.emotion_detector(request.args.get('textToAnalyze'))
     result = json.loads(emotion_str)
 
