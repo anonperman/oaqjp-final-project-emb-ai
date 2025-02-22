@@ -11,7 +11,15 @@ app = Flask("Emotions detector")
 
 @app.route("/")
 def displayInputPage():
-    return app.render_template("index.html")
+    return render_template("index.html")
+
+@app.route("/emotionDetector")
+def getEmotion():
+    result = json.loads(emotion_detection.emotion_detector(request.args.get('textToAnalyze')))
+    result_str = "For the given statement, the system response is "
+    for emotion in emotions_test_dict.keys():
+        result_str += "\" + emotion + "\\\": " + float(result[expected_emotion]) + ","
+        self.assertEqual(expected_emotion, result['dominant_emotion'])    
 
 
 if __name__ == "__main__":
